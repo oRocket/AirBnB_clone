@@ -16,7 +16,7 @@ class FileStorage():
   
   def save(self):
     with open(self.__file_path, "w", encoding="utf-8") as f:
-        d = {k : v.to_dict[] for k, v in self.__objects.items()}
+        d = {k : v.to_dict() for k, v in self.__objects.items()}
         json.dump(d, f)
       
   def reload(self):
