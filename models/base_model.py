@@ -1,38 +1,51 @@
 #!/usr/bin/python3
-
-import uuid
+''' module for BaseModel class '''
 from datetime import datetime
+import uuid
 import models
 
-class BaseModel():
-  
-  def __init__(self, *args, **kwargs):
-    
-    if len(kwargs) != 0:
-      for key, value in kwargs.items():
-        if key == "__class__":
-          continue;
-        elif key == "updated_at" or key == "created_at":
-          self.__dict__[key] = datetime.fromisoformat(value);
+
+class BaseModel:
+    ''' BaseModel class '''
+    def __init__(self, *args, **kwargs):
+        """
+        initation of basemodel
+
+        Args:
+        *args: arguments passed in
+        **kwargs: arguments with key values
+
+        Return: None
+        """
+        if len(kwargs) != 0:
+            self.__dict__ = kwargs
+            self.created_at = datetime.strptime(self.created_at,
+                                                "%Y-%m-%dT%H:%M:%S.%f")
+            self.updated_at = datetime.strptime(self.updated_at,
+                                                "%Y-%m-%dT%H:%M:%S.%f")
         else:
-          self.__dict__[key] = value;
-    else:
-      self.id = str(uuid.uuid4())
-      self.created_at = datetime.now()
-      self.updated_at = datetime.now()
-      models.storage.new(self)
-    
-  def __str__(self):
-    return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
-    
-  def save(self):
-    self.updated_at = datetime.now()
-    models.storage.save()
-    
-  def to_dict(self):
-    copy_dict = self.__dict__.copy()
-    copy_dict["__class__"] = self.__class__.__name__
-    copy_dict["created_at"] = self.created_at.isoformat()
-    copy_dict["updated_at"] = self.updated_at.isoformat()
-    return copy_dict
-    
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            models.storage.new(self)
+
+    def __str__(self):
+        """
+        Return: string represntation fo object
+        """
+        return '[{}] ({}) {}'.format(self.__class__.__name__,
+                                     self.id, self.__dict__)
+
+    def save(self):
+        ''' updates date for updated_at attribute '''
+        self.updated_at = datetime.now()
+        models.storage.save()
+
+    def to_dict(self):
+        ''' returns dictonary with all key values of instance '''
+        copydict = self.__dict__.copy()
+        copydict['__class__'] = self.__class__.__name__
+        copydict['created_at'] = self.created_at.isoformat()
+        copydict['updated_at'] = self.updated_at.isoformat()
+
+        return copydict
