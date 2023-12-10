@@ -1,38 +1,50 @@
 #!/usr/bin/python3
+""" A program of command interpreter """
 import cmd
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 from models.place import Place
 from models.state import State
 from models.amenity import Amenity
 from models.city import City
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """
     HBNBCommand - Airbnb console command interpreter.
 
-    This class provides a command-line interface for interacting with Airbnb-like
-    objects. It supports commands for creating, showing, destroying, listing, updating,
-    and quitting the application.
+    This class provides a command-line interface
+    for interacting with Airbnb-like objects.
+    It supports commands for creating, showing, destroying,
+    listing, updating, and quitting the application.
 
     Attributes:
     - prompt (str): The command prompt displayed to the user.
-    - classess (dict): A dictionary mapping class names to their corresponding classes.
+    - classess (dict): A dictionary mapping class names
+                    to their corresponding classes.
 
     Methods:
-    - do_create(self, line): Creates a new instance of a specified class, saves it, and prints the ID.
-    - do_show(self, line): Prints the string representation of an instance based on class name and ID.
-    - do_destroy(self, line): Deletes an instance based on class name and ID.
-    - do_all(self, line): Prints all string representations of instances or those of a specified class.
-    - do_update(self, line): Updates an instance based on class name and ID with new attribute values.
+    - do_create(self, line): Creates a new instance
+            of a specified class, saves it, and prints the ID.
+    - do_show(self, line): Prints the string representation
+            of an instance based on class name and ID.
+    - do_destroy(self, line): Deletes an instance based
+            on class name and ID.
+    - do_all(self, line): Prints all string representations
+            of instances or those of a specified class.
+    - do_update(self, line): Updates an instance based on
+            class name and ID with new attribute values.
     - do_quit(self, line): Exits the command interpreter.
-    - do_EOF(self, line): Exits the command interpreter when encountering the end of file (EOF).
+    - do_EOF(self, line): Exits the command interpreter
+            when encountering the end of file (EOF).
     - emptyline(self): Does nothing on an empty input line.
 
     Usage:
     - Run the script to start the command-line interface.
-    - Enter commands such as 'create', 'show', 'destroy', 'all', 'update', 'quit', or 'EOF'.
+    - Enter commands such as 'create', 'show', 'destroy',
+            'all', 'update', 'quit', or 'EOF'.
     - Follow the prompts and instructions provided by the interpreter.
 
     Example:
@@ -58,7 +70,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """
-        Create a new instance of a specified class, save it, and print the ID.
+        Create a new instance of a specified class,
+                save it, and print the ID.
 
         Usage: create <class_name>
         """
@@ -73,7 +86,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """
-        Print the string representation of an instance based on class name and ID.
+        Print the string representation of an instanc
+            based on class name and ID.
 
         Usage: show <class_name> <instance_id>
         """
@@ -113,7 +127,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         """
-        Print all string representations of instances or those of a specified class.
+        Print all string representations of instances
+                or those of a specified class.
 
         Usage:
         - all: Print all instances.
@@ -137,9 +152,11 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, line):
         """
-        Update an instance based on class name and ID with new attribute values.
+        Update an instance based on class name
+            and ID with new attribute values.
 
-        Usage: update <class_name> <instance_id> <attribute_name> <attribute_value>
+        Usage: update <class_name> <instance_id>
+            <attribute_name> <attribute_value>
         """
         args = line.split()
         if not line:
@@ -171,7 +188,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """
-        Exit the command interpreter when encountering the end of file (EOF).
+        Exit the command interpreter when
+        encountering the end of file (EOF).
 
         Usage: EOF
         """
@@ -183,6 +201,6 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
